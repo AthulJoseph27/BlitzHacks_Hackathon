@@ -25,3 +25,5 @@ class FoodQuery{
 
 
 }
+
+//cook trap escape point blossom immune first among galaxy build mirror casino
