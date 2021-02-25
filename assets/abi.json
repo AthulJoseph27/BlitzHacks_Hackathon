@@ -1,0 +1,67 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "record",
+        "type": "string"
+      }
+    ],
+    "name": "addToRecords",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "record",
+        "type": "string"
+      }
+    ],
+    "name": "removefromRecords",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_gender",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "_age",
+        "type": "int256"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_records",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "getRecord",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
