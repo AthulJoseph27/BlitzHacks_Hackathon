@@ -6,35 +6,54 @@ import 'dart:ui' as ui;
 
 class HomeItem extends StatelessWidget {
   final IconData icon;
-  HomeItem({this.icon});
+  final String text;
+  HomeItem({this.icon,this.text});
   @override
   Widget build(BuildContext context) {
     return  Container(
-      height: 100,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))
-        ),
-        elevation: 10,
-        child: ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (Rect bounds) {
-            return ui.Gradient.linear(
-              Offset(4.0, 24.0),
-              Offset(24.0, 4.0),
-              [
-                LightTheme.greenAccent,
-                LightTheme.deepIndigoAccent,
-              ],
-            );
-          },
+      height: 120,
+      child: Column(
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))
+              ),
+              elevation: 10,
+              child: ShaderMask(
+                blendMode: BlendMode.srcIn,
+                shaderCallback: (Rect bounds) {
+                  return ui.Gradient.linear(
+                    Offset(4.0, 24.0),
+                    Offset(24.0, 4.0),
+                    [
+                      LightTheme.greenAccent,
+                      LightTheme.deepIndigoAccent,
+                    ],
+                  );
+                },
 //            blendMode: BlendMode.colorBurn,
-          child: Icon(
-           icon,
-            size: 50,
+                child: Icon(
+                 icon,
+                  size: 50,
+                ),
+              ),
+            ),
           ),
-        ),
+          Container(
+            height: 20,
+            child: Text(
+              text,
+              style: TextStyle(
+                  color: LightTheme.darkGray.withOpacity(0.8),
+                  fontSize: 16,
+                  fontFamily: "Montserrat"),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -105,43 +124,55 @@ class _HomeState extends State<Home> {
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               sliver: SliverGrid.count(
-                  crossAxisCount: 4,
+                  crossAxisCount: 3,
                 children: [
                   HomeItem(
                     icon: Icons.account_box,
+                    text: 'Personal Info',
                   ),
                   HomeItem(
                     icon: Icons.info,
+                    text: 'Nutrition Info'
                   ),
                   HomeItem(
                     icon: Icons.alarm,
+                    text: 'Alarm',
                   ),
                   HomeItem(
                     icon: Icons.calculate,
+                    text: 'BMI Calculator',
                   ),
                   HomeItem(
                     icon: Icons.report,
+                    text: 'Report',
                   ),
                   HomeItem(
                     icon: Icons.device_hub,
+                    text: 'device_hub',
                   ),
                   HomeItem(
                     icon: Icons.details,
+                    text: 'details',
                   ),
                   HomeItem(
                     icon: Icons.headset,
+                    text: 'headset',
                   ),
                   HomeItem(
                     icon: Icons.subject,
+                    text: 'subject',
                   ),
                   HomeItem(
                     icon: Icons.book,
+                    text: 'Book',
                   ),
                   HomeItem(
                     icon: Icons.self_improvement_rounded,
+                    text: 'Exercise',
                   ),
                   HomeItem(
                     icon: Icons.logout,
+                    text: 'Logout',
                   ),
                 ],
               ),
