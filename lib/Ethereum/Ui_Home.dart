@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:healthapp/Ethereum/Ui_Records.dart';
+import 'package:healthapp/FoodDataQuery/Ui_NutritionInfo.dart';
 
-import 'Theme.dart';
+import '../Theme.dart';
 import 'dart:ui' as ui;
 
 class HomeItem extends StatelessWidget {
@@ -71,6 +73,7 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          elevation: 40,
           title: Text(
             'Health App',
             style: TextStyle(
@@ -99,7 +102,7 @@ class _HomeState extends State<Home> {
                 height: 200,
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Card(
-                  elevation: 20,
+                  elevation: 10,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
@@ -130,9 +133,16 @@ class _HomeState extends State<Home> {
                     icon: Icons.account_box,
                     text: 'Personal Info',
                   ),
-                  HomeItem(
-                    icon: Icons.info,
-                    text: 'Nutrition Info'
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return NutritionInfo();
+                      }));
+                    },
+                    child: HomeItem(
+                      icon: Icons.info,
+                      text: 'Nutrition Info'
+                    ),
                   ),
                   HomeItem(
                     icon: Icons.alarm,
@@ -142,9 +152,16 @@ class _HomeState extends State<Home> {
                     icon: Icons.calculate,
                     text: 'BMI Calculator',
                   ),
-                  HomeItem(
-                    icon: Icons.report,
-                    text: 'Report',
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return RecordUI();
+                      }));
+                    },
+                    child: HomeItem(
+                      icon: Icons.report,
+                      text: 'Report',
+                    ),
                   ),
                   HomeItem(
                     icon: Icons.device_hub,

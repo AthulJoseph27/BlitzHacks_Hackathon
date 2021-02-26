@@ -1,5 +1,38 @@
 [
   {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "age",
+        "type": "int256"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "gender",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "bloodGroup",
+        "type": "string"
+      }
+    ],
+    "name": "addPatient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "string",
@@ -15,12 +48,81 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "record",
-        "type": "string"
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
-    "name": "removefromRecords",
+    "name": "allPatients",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "age",
+        "type": "int256"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "gender",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "bloodGroup",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "toAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
+    ],
+    "name": "changeVisibilityOfRecordAtIndices",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "patientCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "resetVisiblity",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -28,32 +130,45 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_gender",
-        "type": "string"
-      },
-      {
-        "internalType": "int256",
-        "name": "_age",
-        "type": "int256"
-      },
-      {
-        "internalType": "string[]",
-        "name": "_records",
-        "type": "string[]"
+        "internalType": "address",
+        "name": "_patientAddress",
+        "type": "address"
       }
     ],
+    "name": "setPatientId",
+    "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "constructor"
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
+    ],
+    "name": "setVisibleToAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "inputs": [],
-    "name": "getRecord",
+    "name": "viewAllRecord",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllowedRecord",
     "outputs": [
       {
         "internalType": "string[]",
