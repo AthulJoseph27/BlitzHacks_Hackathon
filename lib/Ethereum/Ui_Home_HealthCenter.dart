@@ -25,7 +25,7 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
   @override
   void initState() {
     httpClient = Client();
-    ethClient = Web3Client('http://86.98.134.242:7545', httpClient);
+    ethClient = Web3Client('HTTP://10.0.2.2:7545', httpClient);
     healthInfo = HealthInfo(
         name: 'Doctor',
         gender: 'M',
