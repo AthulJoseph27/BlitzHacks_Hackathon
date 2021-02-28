@@ -320,8 +320,10 @@ class _RecordUIState extends State<RecordUI> {
                     await healthInfo.setVisiblity(
                         ethClient, healthCenterAddressS, privateKeyS);
                     print("Done----");
+//                    print(_visible);
                     for (int i = 0; i < _list.length; i++) {
                       if (_visible[i]) {
+//                        print("hello");
                         await healthInfo.changeVisibilityOfRecordAtIndices(
                             ethClient, i, healthCenterAddressS, privateKeyS);
                       }

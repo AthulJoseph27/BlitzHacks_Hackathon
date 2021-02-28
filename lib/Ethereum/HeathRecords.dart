@@ -24,7 +24,7 @@ class HealthInfo{
 
   Future<DeployedContract> loadContract()async{
     String abi = await rootBundle.loadString('assets/abi.json');
-    String contractAddress = '0xebaF720cDFC800395f239504e1127b4Cb2A7bD5d';
+    String contractAddress = '0x96C7a41332BE546f99537822c47a14F25926e19D';
 
     final contract = DeployedContract(ContractAbi.fromJson(abi, 'Patient'), EthereumAddress.fromHex(contractAddress));
 
@@ -68,16 +68,19 @@ class HealthInfo{
 
     final result = await submit(ethClient,'setVisibleToAddress',[ EthereumAddress.fromHex(toAddress)],privateKey);
 
+    getVisiblityArray(ethClient);
+    getBoolVisibleArray(ethClient);
+
   }
 
-  Future<List<String>> viewAllowedRecord(Web3Client ethClient)async{
+  Future<List<String>> viewAllowedRecord(Web3Client ethClient, String address)async{
 
-    int recordLength = int.parse((await query(ethClient, 'getTotalNumberOfRecords', []))[0].toString());
+    int recordLength = int.parse((await query(ethClient, 'getTotalNumberOfRecords', [EthereumAddress.fromHex(address)]))[0].toString());
 
     List<String> records = [];
 
     for(int i=0;i<recordLength;i++) {
-      var result = await query(ethClient, 'viewAllowedRecord', [BigInt.from(i)]);
+      var result = await query(ethClient, 'viewAllowedRecord', [BigInt.from(i),EthereumAddress.fromHex(address)]);
       print(result);
       print("__________");
 //      if(result[0] == 'Permission Denied!')
@@ -110,5 +113,23 @@ class HealthInfo{
 
   }
 
+  Future getVisiblityArray(Web3Client ethClient)async{
+
+    dynamic result =  await query(ethClient,'getVisiblityArray',[]);
+
+    for(var i in result)
+      print(i);
+
+  }
+
+  Future getBoolVisibleArray(Web3Client ethClient)async{
+
+    dynamic result =  await query(ethClient,'getBoolVisibleArray',[]);
+
+    for(var i in result)
+      print(i);
+
+  }
 }
 
+//getBoolVisibleArray()
