@@ -31,7 +31,7 @@ class _RecordUIState extends State<RecordUI> {
       _visible.add(false);
     }
     httpClient = Client();
-    ethClient = Web3Client('HTTP://10.0.2.2:7545', httpClient);
+    ethClient = Web3Client('HTTP://10.0.2.2:9545/', httpClient);
     healthInfo = HealthInfo(
         name: 'Barry Allen',
         gender: 'M',
@@ -80,6 +80,66 @@ class _RecordUIState extends State<RecordUI> {
         ),
         body: CustomScrollView(
           slivers: [
+//            SliverToBoxAdapter(
+//              child: SizedBox(
+//                height: 20,
+//              ),
+//            ),
+//            SliverToBoxAdapter(
+//              child: Center(
+//                child: Container(
+//                  height: 60,
+//                  width: 350,
+//                  padding: const EdgeInsets.symmetric(horizontal: 10),
+//                  decoration: BoxDecoration(
+//                    borderRadius: BorderRadius.all(Radius.circular(20)),
+//                    border: Border.all(color: LightTheme.caribbeanGreen),
+//                  ),
+//                  child: Row(
+//                    children: [
+//                      Spacer(),
+//                      Center(
+//                        child: Container(
+//                          width: 250,
+//                          child: TextField(
+//                            onChanged: (value) {
+//                              setState(() {
+//                                myAddressS = value;
+//                              });
+//                            },
+//                            controller: myAddress,
+//                            decoration: InputDecoration(
+//                              border: InputBorder.none,
+//                              hintText: 'My Address',
+//                            ),
+//                          ),
+//                        ),
+//                      ),
+//                      Spacer(
+//                        flex: 2,
+//                      ),
+//                      ShaderMask(
+//                        blendMode: BlendMode.srcIn,
+//                        shaderCallback: (Rect bounds) {
+//                          return ui.Gradient.linear(
+//                            Offset(4.0, 24.0),
+//                            Offset(24.0, 4.0),
+//                            [
+//                              LightTheme.greenAccent,
+//                              LightTheme.deepIndigoAccent,
+//                            ],
+//                          );
+//                        },
+//                        child: Icon(
+//                          Icons.home,
+//                        ),
+//                      ),
+//                      Spacer(),
+//                    ],
+//                  ),
+//                ),
+//              ),
+//            ),
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 20,
@@ -102,67 +162,7 @@ class _RecordUIState extends State<RecordUI> {
                         child: Container(
                           width: 250,
                           child: TextField(
-                            onSubmitted: (value) {
-                              setState(() {
-                                myAddressS = value;
-                              });
-                            },
-                            controller: myAddress,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'My Address',
-                            ),
-                          ),
-                        ),
-                      ),
-                      Spacer(
-                        flex: 2,
-                      ),
-                      ShaderMask(
-                        blendMode: BlendMode.srcIn,
-                        shaderCallback: (Rect bounds) {
-                          return ui.Gradient.linear(
-                            Offset(4.0, 24.0),
-                            Offset(24.0, 4.0),
-                            [
-                              LightTheme.greenAccent,
-                              LightTheme.deepIndigoAccent,
-                            ],
-                          );
-                        },
-                        child: Icon(
-                          Icons.home,
-                        ),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 20,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Center(
-                child: Container(
-                  height: 60,
-                  width: 350,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    border: Border.all(color: LightTheme.caribbeanGreen),
-                  ),
-                  child: Row(
-                    children: [
-                      Spacer(),
-                      Center(
-                        child: Container(
-                          width: 250,
-                          child: TextField(
-                            onSubmitted: (value) {
+                            onChanged: (value) {
                               setState(() {
                                 healthCenterAddressS = value;
                               });
@@ -222,10 +222,9 @@ class _RecordUIState extends State<RecordUI> {
                         child: Container(
                           width: 250,
                           child: TextField(
-                            onSubmitted: (value) {
+                            onChanged: (value) {
                               setState(() {
                                 privateKeyS = value;
-
                               });
                             },
                             controller: privateKey,
@@ -272,10 +271,10 @@ class _RecordUIState extends State<RecordUI> {
               sliver: SliverToBoxAdapter(
                 child: GestureDetector(
                   onTap: () async {
+                    await healthInfo.addPatient(ethClient, privateKeyS);
                     for (int i = 0; i < _list.length; i++) {
                       healthInfo.records.add(_list[i].disease);
-                      await healthInfo.addToRecords(
-                          ethClient, _list[i].disease, privateKeyS);
+                      await healthInfo.addToRecords(ethClient, _list[i].disease, privateKeyS);
                     }
                     print("Done.....!!!!");
 //                    once = false;
@@ -318,7 +317,8 @@ class _RecordUIState extends State<RecordUI> {
                   onTap: () async {
                     print(healthCenterAddressS);
                     print(privateKeyS);
-                    await healthInfo.setVisiblity(ethClient, healthCenterAddressS, privateKeyS);
+                    await healthInfo.setVisiblity(
+                        ethClient, healthCenterAddressS, privateKeyS);
                     print("Done----");
                     for (int i = 0; i < _list.length; i++) {
                       if (_visible[i]) {
@@ -369,6 +369,7 @@ class _RecordUIState extends State<RecordUI> {
                         _visible[i] = false;
                     });
                     await healthInfo.resetVisiblity(ethClient, privateKeyS);
+                    print("Done______");
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(20)),

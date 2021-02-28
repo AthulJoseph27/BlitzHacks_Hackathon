@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
  @override
  void initState() {
     httpClient = Client();
-    ethClient = Web3Client('HTTP://10.0.2.2:7545', httpClient);
+    ethClient = Web3Client('HTTP://10.0.2.2:9545/', httpClient);
     healthInfo = HealthInfo(name: 'Barry Allen',gender: 'M',age: 30,records: [],address: '');
 
     super.initState();
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-        body : Home(),
+        body : HomeHealthCare(),
 //        body: Home(),SingleChildScrollView(
 //          child: Container(
 //            height: 800,
