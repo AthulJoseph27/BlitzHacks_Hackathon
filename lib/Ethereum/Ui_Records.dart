@@ -417,11 +417,12 @@ class _RecordUIState extends State<RecordUI> {
 
                     _list = [];
                     dynamic result = await healthInfo.viewMyRecords(ethClient);
+
                     setState(() {
                       for(var i in result)
                         _list.add(HealthRecord(disease: i.toString()));
                     });
-                    
+
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(20)),

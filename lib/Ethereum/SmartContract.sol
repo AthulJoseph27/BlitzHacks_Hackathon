@@ -8,15 +8,9 @@ contract Patient{
     mapping(address => PatientInfo) public allPatients;
     mapping(address => int) existingAddress;
 
-    address patientAddress;
 
     modifier onlyOwner(){
         require(existingAddress[msg.sender] == 1);
-        _;
-    }
-
-    modifier ownerAndDoctor(){
-        require(existingAddress[msg.sender] == 1 || allPatients[patientAddress].toAddress == msg.sender);
         _;
     }
 
@@ -29,11 +23,21 @@ contract Patient{
         address toAddress;
         string [] records;
         address [] visibileToAddress;
+        bool [] isVisible;
     }
 
 
     function setPatientId(address _patientAddress)public{
-        patientAddress = _patientAddress;
+        // patientAddress = _patientAddress;
+    }
+
+
+    function getVisiblityArray() public view returns(address [] memory){
+        return allPatients[msg.sender].visibileToAddress;
+    }
+
+    function getBoolVisibleArray() public view returns(bool [] memory){
+        return allPatients[msg.sender].isVisible;
     }
 
     function addPatient(int age, string memory name, string memory gender, string memory bloodGroup) public {
@@ -44,6 +48,7 @@ contract Patient{
         _patientInfo.age = age;
         _patientInfo.name = name;
         _patientInfo.gender = gender;
+        _patientInfo.toAddress = msg.sender;
         _patientInfo.bloodGroup = bloodGroup;
         allPatients[msg.sender] = _patientInfo;
 
@@ -61,32 +66,51 @@ contract Patient{
 
         allPatients[msg.sender].records.push(record);
         allPatients[msg.sender].visibileToAddress.push(msg.sender);
+        allPatients[msg.sender].isVisible.push(false);
 
     }
 
     function changeVisibilityOfRecordAtIndices(uint256 index, address _address)public onlyOwner{
         allPatients[msg.sender].visibileToAddress[index] = _address;
+        allPatients[msg.sender].isVisible[index] = true;
     }
 
     function resetVisiblity()public onlyOwner{
         for(uint i=0;i<allPatients[msg.sender].records.length;i++){
             allPatients[msg.sender].visibileToAddress[i] = msg.sender ;
+            allPatients[msg.sender].isVisible[i] = false;
         }
     }
 
-    function getTotalNumberOfRecords() public view returns(uint){
+    function getTotalNumberOfRecords(address _patientAddress) public view returns(uint){
 
-        return allPatients[patientAddress].records.length;
+        return allPatients[_patientAddress].records.length;
 
     }
 
-    function viewAllowedRecord(uint index) public view returns(string memory){
+
+    function addNewRecordToPatient(address _patientAddress,address myAddress,string memory newRecord)public returns(string memory){
+
+        if(myAddress == allPatients[_patientAddress].toAddress){
+            allPatients[_patientAddress].records.push(newRecord);
+            return 'Updated';
+        }else{
+
+            return 'Permission Denied 2';
+        }
+
+    }
+
+    function viewAllowedRecord(uint index, address _patientAddress, address myAddress) public view returns(string memory){
+
+        if(allPatients[msg.sender].isVisible[index] == false)
+            return 'Permission Denied 1!';
 
 
-        if(msg.sender == allPatients[patientAddress].visibileToAddress[index])
-            return allPatients[patientAddress].records[index];
+        if(myAddress == allPatients[_patientAddress].visibileToAddress[index])
+            return allPatients[_patientAddress].records[index];
         else
-            return 'Permission Denied!';
+            return 'Permission Denied 2!';
 
 
     }
