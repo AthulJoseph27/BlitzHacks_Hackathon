@@ -217,6 +217,11 @@
         "internalType": "address",
         "name": "_patientAddress",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "myAddress",
+        "type": "address"
       }
     ],
     "name": "viewAllowedRecord",

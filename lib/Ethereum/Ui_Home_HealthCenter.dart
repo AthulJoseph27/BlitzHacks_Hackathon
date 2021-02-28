@@ -255,9 +255,15 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
                 child: GestureDetector(
                   onTap: ()async{
                     _list = [];
+                    print("patient");
+                    print(patientAddressS);
+                    print("private");
+                    print(privateKeyS);
+                    print("health");
+                    print(myAddressS);
                     await healthInfo.setPatientId(ethClient, patientAddressS, privateKeyS);
                     print("Done_____");
-                    List<String> result = await healthInfo.viewAllowedRecord(ethClient,patientAddressS);
+                    List<String> result = await healthInfo.viewAllowedRecord(ethClient,patientAddressS, myAddressS);
                     print("******Done");
                     setState(() {
                       for(var i in result)
