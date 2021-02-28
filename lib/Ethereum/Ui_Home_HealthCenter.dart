@@ -257,7 +257,7 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
                     _list = [];
                     await healthInfo.setPatientId(ethClient, patientAddressS, privateKeyS);
                     print("Done_____");
-                    List<String> result = await healthInfo.viewAllowedRecord(ethClient);
+                    List<String> result = await healthInfo.viewAllowedRecord(ethClient,patientAddressS);
                     print("******Done");
                     setState(() {
                       for(var i in result)
