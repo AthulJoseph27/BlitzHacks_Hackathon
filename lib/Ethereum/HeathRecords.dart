@@ -24,7 +24,7 @@ class HealthInfo{
 
   Future<DeployedContract> loadContract()async{
     String abi = await rootBundle.loadString('assets/abi.json');
-    String contractAddress = '0x1d7583C46f6F7D94c872af10Ce4b2DDF1B3917e7';
+    String contractAddress = '0x8ff948818973066AE23Faf73bFd05DDf42D2DfAB';
 
     final contract = DeployedContract(ContractAbi.fromJson(abi, 'Patient'), EthereumAddress.fromHex(contractAddress));
 
@@ -129,6 +129,10 @@ class HealthInfo{
     for(var i in result)
       print(i);
 
+  }
+
+  Future addNewRecord(Web3Client ethClient , String newRecord, String patientAddress, String myAddress,String privateKey)async{
+    final result = await submit(ethClient,'addNewRecordToPatient',[EthereumAddress.fromHex(patientAddress),EthereumAddress.fromHex(myAddress),newRecord],privateKey);
   }
 }
 
