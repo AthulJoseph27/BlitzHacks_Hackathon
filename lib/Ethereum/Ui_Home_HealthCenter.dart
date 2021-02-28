@@ -25,7 +25,7 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
   @override
   void initState() {
     httpClient = Client();
-    ethClient = Web3Client('HTTP://10.0.2.2:7545', httpClient);
+    ethClient = Web3Client('HTTP://10.0.2.2:9545/', httpClient);
     healthInfo = HealthInfo(
         name: 'Doctor',
         gender: 'M',
@@ -65,6 +65,66 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
         ),
         body: CustomScrollView(
           slivers: [
+//            SliverToBoxAdapter(
+//              child: SizedBox(
+//                height: 20,
+//              ),
+//            ),
+//            SliverToBoxAdapter(
+//              child: Center(
+//                child: Container(
+//                  height: 60,
+//                  width: 350,
+//                  padding: const EdgeInsets.symmetric(horizontal: 10),
+//                  decoration: BoxDecoration(
+//                    borderRadius: BorderRadius.all(Radius.circular(20)),
+//                    border: Border.all(color: LightTheme.caribbeanGreen),
+//                  ),
+//                  child: Row(
+//                    children: [
+//                      Spacer(),
+//                      Center(
+//                        child: Container(
+//                          width: 250,
+//                          child: TextField(
+//                            onChanged: (value){
+//                              setState(() {
+//                                myAddressS = value;
+//                              });
+//                            },
+//                            controller: myAddress,
+//                            decoration: InputDecoration(
+//                              border: InputBorder.none,
+//                              hintText: 'My Address',
+//                            ),
+//                          ),
+//                        ),
+//                      ),
+//                      Spacer(
+//                        flex: 2,
+//                      ),
+//                      ShaderMask(
+//                        blendMode: BlendMode.srcIn,
+//                        shaderCallback: (Rect bounds) {
+//                          return ui.Gradient.linear(
+//                            Offset(4.0, 24.0),
+//                            Offset(24.0, 4.0),
+//                            [
+//                              LightTheme.greenAccent,
+//                              LightTheme.deepIndigoAccent,
+//                            ],
+//                          );
+//                        },
+//                        child: Icon(
+//                          Icons.home,
+//                        ),
+//                      ),
+//                      Spacer(),
+//                    ],
+//                  ),
+//                ),
+//              ),
+//            ),
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 20,
@@ -87,67 +147,7 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
                         child: Container(
                           width: 250,
                           child: TextField(
-                            onSubmitted: (value){
-                              setState(() {
-                                myAddressS = value;
-                              });
-                            },
-                            controller: myAddress,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'My Address',
-                            ),
-                          ),
-                        ),
-                      ),
-                      Spacer(
-                        flex: 2,
-                      ),
-                      ShaderMask(
-                        blendMode: BlendMode.srcIn,
-                        shaderCallback: (Rect bounds) {
-                          return ui.Gradient.linear(
-                            Offset(4.0, 24.0),
-                            Offset(24.0, 4.0),
-                            [
-                              LightTheme.greenAccent,
-                              LightTheme.deepIndigoAccent,
-                            ],
-                          );
-                        },
-                        child: Icon(
-                          Icons.home,
-                        ),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 20,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Center(
-                child: Container(
-                  height: 60,
-                  width: 350,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    border: Border.all(color: LightTheme.caribbeanGreen),
-                  ),
-                  child: Row(
-                    children: [
-                      Spacer(),
-                      Center(
-                        child: Container(
-                          width: 250,
-                          child: TextField(
-                            onSubmitted: (value){
+                            onChanged: (value){
                               setState(() {
                                 patientAddressS = value;
                               });
@@ -155,7 +155,7 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
                             controller: patientAddress,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: 'Patient Uid',
+                              hintText: 'Patient Address',
                             ),
                           ),
                         ),
@@ -207,7 +207,7 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
                         child: Container(
                           width: 250,
                           child: TextField(
-                            onSubmitted: (value) {
+                            onChanged: (value) {
                               setState(() {
                                 privateKeyS = value;
                               });
@@ -256,11 +256,11 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
                   onTap: ()async{
                     await healthInfo.setPatientId(ethClient, patientAddressS, privateKeyS);
                     print("Done_____");
-                    final result = await healthInfo.viewAllowedRecord(ethClient, patientAddressS);
+                    List<String> result = await healthInfo.viewAllowedRecord(ethClient);
                     print("******Done");
                     setState(() {
                       for(var i in result)
-                        _list.add(HealthRecord(disease: i.toString()));
+                        _list.add(HealthRecord(disease: i));
                     });
                   },
                   child: ClipRRect(

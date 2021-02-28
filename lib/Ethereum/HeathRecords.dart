@@ -24,7 +24,7 @@ class HealthInfo{
 
   Future<DeployedContract> loadContract()async{
     String abi = await rootBundle.loadString('assets/abi.json');
-    String contractAddress = '0x14DD8CD8Ab426E729eB450326680EeaA7E0addDb';
+    String contractAddress = '0x69226c80e5F928d256bFbD5D9F306838769587D0';
 
     final contract = DeployedContract(ContractAbi.fromJson(abi, 'Patient'), EthereumAddress.fromHex(contractAddress));
 
@@ -54,7 +54,7 @@ class HealthInfo{
 
     DeployedContract contract = await loadContract();
     final ethFunction = contract.function(functionName);
-    final result = await ethClient.sendTransaction(cred, Transaction.callContract(contract:contract, function: ethFunction, parameters: args),fetchChainIdFromNetworkId: true);
+    final result = await ethClient.sendTransaction(cred, Transaction.callContract(contract:contract, function: ethFunction, parameters: args));
 
     return result;
   }
@@ -64,21 +64,28 @@ class HealthInfo{
     final result = await submit(ethClient, 'setPatientId', [EthereumAddress.fromHex(patientAddress)], privateKey);
   }
 
-  Future addToRecords(Web3Client ethClient,String record, String privateKey)async{
-
-    dynamic result = await submit(ethClient, 'addToRecords', [record], privateKey);
-
-  }
-
   Future setVisiblity(Web3Client ethClient, String toAddress, String privateKey)async{
 
     final result = await submit(ethClient,'setVisibleToAddress',[ EthereumAddress.fromHex(toAddress)],privateKey);
 
   }
 
-  Future viewAllowedRecord(Web3Client ethClient , String patientAddress)async{
+  Future<List<String>> viewAllowedRecord(Web3Client ethClient)async{
 
-    return await query(ethClient, 'viewAllowedRecord', []);
+    int recordLength = int.parse((await query(ethClient, 'getTotalNumberOfRecords', []))[0].toString());
+
+    List<String> records = [];
+
+    for(int i=0;i<recordLength;i++) {
+      var result = await query(ethClient, 'viewAllowedRecord', [BigInt.from(i)]);
+      print(result);
+      print("__________");
+//      if(result[0] == 'Permission Denied!')
+//        continue;
+      records.add(result[0]);
+    }
+
+    return records;
 
   }
 
@@ -93,10 +100,15 @@ class HealthInfo{
 
   Future addPatient(Web3Client ethClient, String privateKey)async{
 
-    final result =  await submit(ethClient,'addPatient',[age,name,gender,bloodGroup],privateKey);
+    final result =  await submit(ethClient,'addPatient',[BigInt.from(age),name,gender,bloodGroup],privateKey);
 
   }
 
+  Future addToRecords(Web3Client ethClient,String record, String privateKey)async{
+
+    dynamic result = await submit(ethClient, 'addToRecords', [record], privateKey);
+
+  }
 
 }
 
