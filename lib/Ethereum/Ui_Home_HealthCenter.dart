@@ -315,6 +315,12 @@ class _HomeHealthCareState extends State<HomeHealthCare> {
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed:()async{
+            final result = await healthInfo.addNewRecord(ethClient, 'Your Are Fine', patientAddressS, myAddressS, privateKeyS);
+          }
+        ),
       ),
     );
   }

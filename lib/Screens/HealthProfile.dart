@@ -2,9 +2,13 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healthapp/Ethereum/Ui_Home_HealthCenter.dart';
+import 'package:healthapp/Ethereum/Ui_Records.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:healthapp/constants.dart';
 import 'package:healthapp/Screens//widgets/profile_list_item.dart';
+
+import '../Theme.dart';
 //import 'package:UI/PatientInterface/healthInformations.dart';
 
 
@@ -45,19 +49,24 @@ class ProfileScreen extends StatelessWidget {
               children: <Widget>[
                 CircleAvatar(
                   radius: kSpacingUnit.w * 5,
-                  backgroundImage: AssetImage('assets/images/avatar.png'),
+//                  backgroundImage: AssetImage('assets/images/avatar.png'),
                 ),
               ],
             ),
           ),
           SizedBox(height: kSpacingUnit.w * 2),
-          Text(
-            'Nicolas Adams',
-            style: kTitleTextStyle,
+          Center(
+            child: Text(
+              'Health Information Exchange System',
+              style:TextStyle(
+                  color: LightTheme.darkGray.withOpacity(0.8),
+                  fontSize: 25,
+                  fontFamily: "Montserrat"),
+            ),
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
           Text(
-            'nicolasadams@gmail.com',
+            'Choose your account type',
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 2),
@@ -120,26 +129,26 @@ class ProfileScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                                return ;
+                                return RecordUI();
                             
                           }));
                         },
                         child: ProfileListItem(
                           icon: LineAwesomeIcons.heart,
-                          text: 'Health Information'
+                          text: 'Patient Access'
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                                return null;
+                                return HomeHealthCare();
                             
                           }));
                         },
                         child: ProfileListItem(
                           icon: LineAwesomeIcons.record_vinyl,
-                          text: 'Health Records Access'
+                          text: 'Health Provider Access'
                         ),
                       ),
                     ],
