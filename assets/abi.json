@@ -103,7 +103,13 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_patientAddress",
+        "type": "address"
+      }
+    ],
     "name": "getTotalNumberOfRecords",
     "outputs": [
       {
@@ -180,6 +186,11 @@
         "internalType": "uint256",
         "name": "index",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_patientAddress",
+        "type": "address"
       }
     ],
     "name": "viewAllowedRecord",
