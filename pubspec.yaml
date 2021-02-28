@@ -13,11 +13,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  android_alarm_manager: ^0.4.5+20
 
   cupertino_icons: ^1.0.0
   http: ^0.12.2
   web3dart: 2.0.0-dev.9
+  
 
 dev_dependencies:
   flutter_test:
