@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthapp/Ethereum/HeathRecords.dart';
 import 'package:healthapp/FoodDataQuery/QueryData.dart';
+import 'package:healthapp/Screens/HealthProfile.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:http/http.dart';
 
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-        body : HomeHealthCare(),
+        body : HealthProfile(),
 //        body: Home(),SingleChildScrollView(
 //          child: Container(
 //            height: 800,
