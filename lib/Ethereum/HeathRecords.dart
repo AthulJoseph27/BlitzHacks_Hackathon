@@ -24,7 +24,7 @@ class HealthInfo{
 
   Future<DeployedContract> loadContract()async{
     String abi = await rootBundle.loadString('assets/abi.json');
-    String contractAddress = '0x7945BDfb850368a1aFb3D306AD5d0CAD59BB20e6';
+    String contractAddress = '0xC6f53dbff1f37d291258d1E0A57d54C980DB6fAb';
 
     final contract = DeployedContract(ContractAbi.fromJson(abi, 'Patient'), EthereumAddress.fromHex(contractAddress));
 
