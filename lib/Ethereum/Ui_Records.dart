@@ -419,10 +419,8 @@ class _RecordUIState extends State<RecordUI> {
                     dynamic result = await healthInfo.viewMyRecords(ethClient);
 
                     setState(() {
-                      for(var i in result) {
+                      for(var i in result)
                         _list.add(HealthRecord(disease: i.toString()));
-                        print(result);
-                      }
                     });
 
                   },
