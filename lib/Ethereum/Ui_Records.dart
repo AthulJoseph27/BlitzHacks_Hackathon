@@ -366,12 +366,14 @@ class _RecordUIState extends State<RecordUI> {
               sliver: SliverToBoxAdapter(
                 child: GestureDetector(
                   onTap: () async {
-                    setState(() {
-                      for (int i = 0; i < _list.length; i++)
-                        _visible[i] = false;
-                    });
-                    await healthInfo.resetVisiblity(ethClient, privateKeyS);
-                    print("Done______");
+                    await healthInfo.getVisiblityArray(ethClient);
+                    await healthInfo.getBoolVisibleArray(ethClient);
+//                    setState(() {
+//                      for (int i = 0; i < _list.length; i++)
+//                        _visible[i] = false;
+//                    });
+//                    await healthInfo.resetVisiblity(ethClient, privateKeyS);
+//                    print("Done______");
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(20)),

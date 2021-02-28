@@ -24,7 +24,7 @@ class HealthInfo{
 
   Future<DeployedContract> loadContract()async{
     String abi = await rootBundle.loadString('assets/abi.json');
-    String contractAddress = '0x96C7a41332BE546f99537822c47a14F25926e19D';
+    String contractAddress = '0x1d7583C46f6F7D94c872af10Ce4b2DDF1B3917e7';
 
     final contract = DeployedContract(ContractAbi.fromJson(abi, 'Patient'), EthereumAddress.fromHex(contractAddress));
 
@@ -73,14 +73,14 @@ class HealthInfo{
 
   }
 
-  Future<List<String>> viewAllowedRecord(Web3Client ethClient, String address)async{
+  Future<List<String>> viewAllowedRecord(Web3Client ethClient, String address, String myAddress)async{
 
     int recordLength = int.parse((await query(ethClient, 'getTotalNumberOfRecords', [EthereumAddress.fromHex(address)]))[0].toString());
 
     List<String> records = [];
-
+    print(recordLength);
     for(int i=0;i<recordLength;i++) {
-      var result = await query(ethClient, 'viewAllowedRecord', [BigInt.from(i),EthereumAddress.fromHex(address)]);
+      var result = await query(ethClient, 'viewAllowedRecord', [BigInt.from(i),EthereumAddress.fromHex(address),EthereumAddress.fromHex(myAddress)]);
       print(result);
       print("__________");
 //      if(result[0] == 'Permission Denied!')
