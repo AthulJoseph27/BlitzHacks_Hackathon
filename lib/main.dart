@@ -5,7 +5,7 @@ import 'package:healthapp/Screens/HealthProfile.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:http/http.dart';
 
-import 'Ethereum/Ui_Home.dart';
+import 'Screens/Ui_Home.dart';
 import 'Ethereum/Ui_Home_HealthCenter.dart';
 
 void main() {
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-        body : HealthProfile(),
+        body : Home(),
 //        body: Home(),SingleChildScrollView(
 //          child: Container(
 //            height: 800,
