@@ -136,7 +136,7 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return NutritionInfo();
+                        return NutritionInfoPage();
                       }));
                     },
                     child: HomeItem(
